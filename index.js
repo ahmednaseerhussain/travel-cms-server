@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const db = require('./db.json');
+const db = require('./data/db.json');
 
 // CORS Middleware ko use karte hain
 app.use(cors());
