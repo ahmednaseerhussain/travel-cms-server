@@ -5,7 +5,9 @@ const db = require('./data/db.json');
 
 // CORS Middleware ko use karte hain
 app.use(cors({
-  origin: '*', // Or specify your frontend origin
+  origin: 'https://travel-cms-blue.vercel.app', // Allow only your frontend origin
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allow necessary methods
+  allowedHeaders: ['Content-Type'], // Allow necessary headers
 }));
 app.get('/api/db', (req, res) => {
   res.status(200).json(db);
