@@ -1,28 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const db = require('./data/db.json');
+const Koa = require('koa');
+const cors = require('@koa/cors');
+const app = new Koa();
 
-// CORS Middleware ko use karte hain
 app.use(cors({
-  origin: 'https://travel-cms-blue.vercel.app', // Allow only your frontend origin
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allow necessary methods
-  allowedHeaders: ['Content-Type'], // Allow necessary headers
+  origin: 'https://travel-cms-blue.vercel.app',
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
 }));
-app.get('/api/db', (req, res) => {
-  res.status(200).json(db);
+
+app.use(async ctx => {
+  if (ctx.path === '/api/db/banner' && ctx.method === 'GET') {
+    // Your route logic here
+    ctx.body = { message: 'Banner data' };
+  } else {
+    ctx.status = 404;
+  }
 });
 
-// Add other routes if necessary
-app.get('/api/db/category', (req, res) => {
-  res.status(200).json(db.category);
-});
-
-app.get('/api/db/banner', (req, res) => {
-  res.status(200).json(db.banner);
-});
-
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
