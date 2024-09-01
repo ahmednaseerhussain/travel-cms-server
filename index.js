@@ -4,8 +4,9 @@ const app = express();
 const db = require('./data/db.json');
 
 // CORS Middleware ko use karte hain
-app.use(cors());
-
+app.use(cors({
+  origin: '*', // Or specify your frontend origin
+}));
 app.get('/api/db', (req, res) => {
   res.status(200).json(db);
 });
